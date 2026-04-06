@@ -1,0 +1,12 @@
+{
+  "name": "tesla-landing",
+  "version": "1.0.0",
+  "description": "Tesla landing page with responsive menu and product carousel",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
