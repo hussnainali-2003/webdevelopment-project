@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/public/css/style.css" />
+</head>
+<body class="shop-body">
+
+<header class="navbar shop-nav">
+  <a href="/" class="logo">TESLA</a>
+  <nav class="nav-right">
+    <a href="/products">Shop</a>
+    <a href="#">Account</a>
+  </nav>
+</header>
+
+<main class="shop-main">
+  <h1 class="shop-title">Shop</h1>
+
+  <form class="shop-filters" method="GET" action="/products">
+    <input type="text" name="search" placeholder="Search products…" value="<%= search %>" />
+    <select name="category">
+      <option value="">All categories</option>
+      <% categories.forEach(function(c){ %>
+        <option value="<%= c %>" <%= category === c ? 'selected' : '' %>><%= c %></option>
+      <% }) %>
+    </select>
+    <button type="submit">Apply</button>
+    <a href="/products" class="reset">Reset</a>
+  </form>
+
+  <p class="shop-meta"><%= total %> product(s) found</p>
+
+  <% if (products.length === 0) { %>
+    <p class="empty">No products match your filters.</p>
+  <% } else { %>
+    <div class="product-grid">
+      <% products.forEach(function(p){ %>
+        <article class="product-card">
+          <div class="product-img" style="background-image:url('<%= p.image %>')"></div>
+          <h3><%= p.name %></h3>
+          <p class="cat"><%= p.category %></p>
+          <p class="price">$<%= p.price.toFixed(2) %></p>
+          <p class="meta">★ <%= p.rating.toFixed(1) %> • Stock: <%= p.stock %></p>
+        </article>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <% if (totalPages > 1) { %>
+    <nav class="pagination">
+      <% function qs(n){
+           const params = new URLSearchParams();
+           params.set('page', n);
+           if (category) params.set('category', category);
+           if (search)   params.set('search', search);
+           return '/products?' + params.toString();
+         } %>
+      <% if (page > 1) { %><a href="<%= qs(page - 1) %>">&laquo; Prev</a><% } %>
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <a href="<%= qs(i) %>" class="<%= i === page ? 'active' : '' %>"><%= i %></a>
+      <% } %>
+      <% if (page < totalPages) { %><a href="<%= qs(page + 1) %>">Next &raquo;</a><% } %>
+    </nav>
+  <% } %>
+</main>
+
+</body>
+</html>

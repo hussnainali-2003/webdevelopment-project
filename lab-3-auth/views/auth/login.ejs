@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/public/css/admin.css" />
+  <style>
+    .auth-card { max-width: 420px; margin: 60px auto; background:#fff; padding:32px; border-radius:14px; box-shadow:0 4px 14px rgba(0,0,0,.06); }
+    .auth-card h1 { margin-bottom: 18px; font-size: 22px; }
+    .auth-card label { display:block; margin-bottom:14px; font-size:13px; font-weight:600; color:#5c5e62; }
+    .auth-card input { width:100%; margin-top:6px; padding:10px 12px; border:1px solid #d6d6d6; border-radius:8px; font-size:14px; }
+    .auth-card .alt { margin-top:14px; font-size:13px; color:#5c5e62; text-align:center; }
+    .flash { padding:10px 14px; border-radius:8px; margin-bottom:14px; font-size:13px; }
+    .flash.error { background:#fde8e8; color:#a02020; }
+    .flash.success { background:#e2f7e8; color:#1f7a36; }
+  </style>
+</head>
+<body>
+  <header class="admin-header">
+    <a href="/products" class="brand">TESLA</a>
+    <nav>
+      <a href="/products">Shop</a>
+      <a href="/login">Log in</a>
+      <a href="/register" class="cta">Sign up</a>
+    </nav>
+  </header>
+
+  <main class="auth-card">
+    <% if (error && error.length) { %><div class="flash error"><%= error %></div><% } %>
+    <% if (success && success.length) { %><div class="flash success"><%= success %></div><% } %>
+
+    <h1>Log in</h1>
+    <form method="POST" action="/login">
+      <label>Email <input type="email" name="email" required /></label>
+      <label>Password <input type="password" name="password" required /></label>
+      <button type="submit" class="btn" style="width:100%">Log in</button>
+    </form>
+    <p class="alt">Need an account? <a href="/register">Sign up</a></p>
+  </main>
+</body>
+</html>
