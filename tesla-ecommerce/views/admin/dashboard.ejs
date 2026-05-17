@@ -1,0 +1,50 @@
+<div class="page-head">
+  <div>
+    <h1>Dashboard</h1>
+    <p class="text-muted mb-0">Welcome back, <%= currentUser.name %>.</p>
+  </div>
+</div>
+
+<div class="stat-row">
+  <a href="/admin/products" class="stat-card">
+    <div class="icon"><i class="fa-solid fa-box"></i></div>
+    <div class="meta"><div class="num"><%= productCount %></div><div class="lbl">Products</div></div>
+  </a>
+  <a href="/admin/categories" class="stat-card success">
+    <div class="icon"><i class="fa-solid fa-tags"></i></div>
+    <div class="meta"><div class="num"><%= categoryCount %></div><div class="lbl">Categories</div></div>
+  </a>
+  <a href="/admin/orders" class="stat-card warn">
+    <div class="icon"><i class="fa-solid fa-receipt"></i></div>
+    <div class="meta"><div class="num"><%= orderCount %></div><div class="lbl">Orders</div></div>
+  </a>
+  <div class="stat-card danger">
+    <div class="icon"><i class="fa-solid fa-users"></i></div>
+    <div class="meta"><div class="num"><%= userCount %></div><div class="lbl">Users</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <span><i class="fa-solid fa-triangle-exclamation text-warning me-2"></i>Low stock</span>
+    <a href="/admin/products" class="btn btn-sm btn-outline-primary">Manage products</a>
+  </div>
+  <div class="card-body p-0">
+    <% if (!lowStock || lowStock.length === 0) { %>
+      <p class="text-muted m-3 mb-3">All inventory healthy.</p>
+    <% } else { %>
+      <table class="table table-hover mb-0">
+        <thead><tr><th class="ps-3">Name</th><th>Category</th><th>Stock</th></tr></thead>
+        <tbody>
+          <% lowStock.forEach(p => { %>
+            <tr>
+              <td class="ps-3"><%= p.name %></td>
+              <td><%= p.category && p.category.name ? p.category.name : (p.category || '—') %></td>
+              <td><span class="badge bg-danger"><%= p.stock %></span></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+</div>

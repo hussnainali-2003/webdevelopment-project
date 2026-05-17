@@ -1,0 +1,105 @@
+<section class="product-detail">
+  <img src="<%= product.image %>" alt="<%= product.name %>" />
+  <div class="info">
+    <h1><%= product.name %></h1>
+    <p class="cat"><%= product.category %></p>
+    <p class="price">$<%= product.price.toLocaleString() %></p>
+    <p class="rating">★ <%= product.rating.toFixed(1) %></p>
+    <p class="stock"><%= product.stock %> in stock</p>
+    <p class="desc"><%= product.description %></p>
+    
+    <% if (currentUser && currentUser.role === 'customer') { %>
+      <form id="addToCartForm" class="add-to-cart-form">
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" name="quantity" value="1" min="1" max="<%= product.stock %>" required />
+        </div>
+        <button type="submit" class="btn-primary">🛒 Add to Cart</button>
+      </form>
+    <% } else if (!currentUser) { %>
+      <p class="alert-info">Please <a href="/auth/login">sign in</a> to add items to cart.</p>
+    <% } %>
+    
+    <a class="btn-primary" href="/products">← Back to shop</a>
+  </div>
+</section>
+
+<script>
+document.getElementById('addToCartForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const quantity = parseInt(document.getElementById('quantity').value);
+  const btn = e.target.querySelector('button');
+  const originalText = btn.textContent;
+  btn.textContent = '⏳ Adding...';
+  btn.disabled = true;
+  
+  try {
+    const response = await fetch('/products/<%= product._id %>/add-to-cart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quantity })
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+      alert('✓ ' + data.message + '\n\nOrder ID: #' + data.orderId.toString().substring(0, 8) + '\n\nYou can view your order in the admin panel.');
+      document.getElementById('quantity').value = '1';
+    } else {
+      alert('✗ Error: ' + (data.error || 'Failed to add to cart'));
+    }
+  } catch (err) {
+    alert('✗ Error: ' + err.message);
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+});
+</script>
+
+<style>
+.add-to-cart-form {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+.add-to-cart-form .form-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.add-to-cart-form label {
+  font-weight: 600;
+  min-width: 100px;
+}
+.add-to-cart-form input[type="number"] {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.add-to-cart-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.alert-info {
+  display: block;
+  padding: 12px;
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  margin: 15px 0;
+  color: #664d03;
+}
+.alert-info a {
+  color: #ff6b00;
+  font-weight: 600;
+  text-decoration: none;
+}
+.alert-info a:hover {
+  text-decoration: underline;
+}
+</style>

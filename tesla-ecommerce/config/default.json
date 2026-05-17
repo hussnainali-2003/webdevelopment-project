@@ -1,0 +1,7 @@
+{
+  "port": 3000,
+  "mongoURI": "mongodb://127.0.0.1:27017/tesla_ecommerce",
+  "sessionSecret": "tesla-super-secret-change-me",
+  "jwtSecret": "tesla-jwt-secret-change-me",
+  "jwtExpiresIn": "1h"
+}

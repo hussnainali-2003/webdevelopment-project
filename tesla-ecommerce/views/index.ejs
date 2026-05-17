@@ -1,0 +1,54 @@
+<section class="hero hero-main" style="background-image:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.55) 100%),url('/images/products/model-y.jpg');">
+  <div class="hero-inner">
+    <h1>Model Y</h1>
+    <p class="sub">The car of the future, today.</p>
+    <div class="cta-row">
+      <a class="btn-primary" href="/products?category=Vehicles">Custom Order</a>
+      <a class="btn-secondary" href="/products">Shop Now</a>
+    </div>
+  </div>
+</section>
+
+<section class="hero hero-alt" style="background-image:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.6) 100%),url('/images/products/powerwall.jpg');">
+  <div class="hero-inner">
+    <h1>Powerwall</h1>
+    <p class="sub">Store solar energy for backup protection.</p>
+    <a class="btn-primary" href="/products?category=Energy">Learn More</a>
+  </div>
+</section>
+
+<section class="categories-section">
+  <h2>Shop by Category</h2>
+  <div class="cat-grid">
+    <a class="cat-tile" href="/products?category=Vehicles" style="background-image:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.7)),url('/images/products/model-s.jpg');">
+      <span>Vehicles</span>
+    </a>
+    <a class="cat-tile" href="/products?category=Energy" style="background-image:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.7)),url('/images/products/solar-roof.jpg');">
+      <span>Energy</span>
+    </a>
+    <a class="cat-tile" href="/products?category=Charging" style="background-image:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.7)),url('/images/products/wall-connector.jpg');">
+      <span>Charging</span>
+    </a>
+    <a class="cat-tile" href="/products?category=Accessories" style="background-image:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.7)),url('/images/products/floor-mats.jpg');">
+      <span>Accessories</span>
+    </a>
+    <a class="cat-tile" href="/products?category=Apparel" style="background-image:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.7)),url('/images/products/tesla-tee.jpg');">
+      <span>Apparel</span>
+    </a>
+  </div>
+</section>
+
+<section class="featured">
+  <h2>Featured Vehicles</h2>
+  <div class="grid">
+    <% featured.forEach(p => { %>
+      <a class="card" href="/products/<%= p._id %>">
+        <div class="card-img" style="background-image:url('<%= p.image %>');"></div>
+        <div class="card-body">
+          <h3><%= p.name %></h3>
+          <p class="price">From $<%= p.price.toLocaleString() %></p>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+</section>

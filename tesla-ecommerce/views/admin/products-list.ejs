@@ -1,0 +1,39 @@
+<div class="page-head">
+  <h1>Products</h1>
+  <a class="btn btn-primary" href="/admin/products/new"><i class="fa-solid fa-plus me-1"></i> New Product</a>
+</div>
+
+<div class="card">
+  <div class="card-body p-0">
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr>
+          <th class="ps-3">Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Rating</th><th class="text-end pe-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (!items || items.length === 0) { %>
+          <tr><td colspan="7" class="text-center text-muted py-4">No products yet.</td></tr>
+        <% } else { %>
+          <% items.forEach(p => { %>
+            <tr>
+              <td class="ps-3"><img src="<%= p.image || '/images/placeholder.jpg' %>" class="product-thumb" alt=""></td>
+              <td class="fw-medium"><%= p.name %></td>
+              <td><%= p.category && p.category.name ? p.category.name : (p.category || '—') %></td>
+              <td>$<%= p.price.toLocaleString() %></td>
+              <td><%= p.stock %></td>
+              <td><i class="fa-solid fa-star text-warning"></i> <%= p.rating.toFixed(1) %></td>
+              <td class="text-end pe-3">
+                <a href="/admin/products/<%= p._id %>/edit" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></a>
+                <form method="POST" action="/admin/products/<%= p._id %>?_method=DELETE" class="d-inline"
+                      onsubmit="return confirm('Delete &quot;<%= p.name %>&quot;?');">
+                  <button class="btn btn-sm btn-outline-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

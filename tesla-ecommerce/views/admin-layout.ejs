@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin · <%= title %></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+  <div class="admin-wrapper">
+    <aside class="admin-sidebar">
+      <div class="brand">
+        <i class="fa-solid fa-bolt"></i>
+        <span>TESLA <small>Admin</small></span>
+      </div>
+      <nav class="nav flex-column">
+        <a class="nav-link" href="/admin"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+        <a class="nav-link" href="/admin/products"><i class="fa-solid fa-box"></i> Products</a>
+        <a class="nav-link" href="/admin/categories"><i class="fa-solid fa-tags"></i> Categories</a>
+        <a class="nav-link" href="/admin/orders"><i class="fa-solid fa-receipt"></i> Orders</a>
+        <a class="nav-link" href="/admin/products/new"><i class="fa-solid fa-plus"></i> New Product</a>
+        <div class="sidebar-spacer"></div>
+        <a class="nav-link" href="/"><i class="fa-solid fa-arrow-left"></i> View Store</a>
+        <form action="/auth/logout" method="POST" class="px-3 pt-2">
+          <button class="btn btn-outline-light btn-sm w-100" type="submit"><i class="fa-solid fa-right-from-bracket"></i> Sign out</button>
+        </form>
+      </nav>
+    </aside>
+    <main class="admin-main">
+      <div class="topbar">
+        <h5 class="mb-0"><%= title %></h5>
+        <div class="user-chip">
+          <i class="fa-solid fa-user-shield"></i>
+          <span><%= currentUser.name %></span>
+        </div>
+      </div>
+      <div class="admin-content">
+        <%- include('partials/flash') %>
+        <%- body %>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

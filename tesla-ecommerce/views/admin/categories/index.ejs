@@ -1,0 +1,40 @@
+<div class="page-head">
+  <h1>Categories</h1>
+  <a class="btn btn-primary" href="/admin/categories/new"><i class="fa-solid fa-plus me-1"></i> New Category</a>
+</div>
+
+<div class="card">
+  <div class="card-body p-0">
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr>
+          <th class="ps-3"><a class="text-decoration-none text-reset" href="/admin/categories?sort=name&order=<%= sortField === 'name' && sortOrder === 'asc' ? 'desc' : 'asc' %>">Name <i class="fa-solid fa-sort"></i></a></th>
+          <th>Slug</th>
+          <th>Description</th>
+          <th><a class="text-decoration-none text-reset" href="/admin/categories?sort=createdAt&order=<%= sortField === 'createdAt' && sortOrder === 'asc' ? 'desc' : 'asc' %>">Created <i class="fa-solid fa-sort"></i></a></th>
+          <th class="text-end pe-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (categories.length === 0) { %>
+          <tr><td colspan="5" class="text-center text-muted py-4">No categories yet.</td></tr>
+        <% } else { %>
+          <% categories.forEach(c => { %>
+            <tr>
+              <td class="ps-3 fw-medium"><%= c.name %></td>
+              <td><code><%= c.slug %></code></td>
+              <td class="text-muted"><%= c.description %></td>
+              <td><%= new Date(c.createdAt).toLocaleDateString() %></td>
+              <td class="text-end pe-3">
+                <a href="/admin/categories/edit/<%= c._id %>" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></a>
+                <form method="POST" action="/admin/categories/delete/<%= c._id %>" class="d-inline" onsubmit="return confirm('Delete &quot;<%= c.name %>&quot;?');">
+                  <button class="btn btn-sm btn-outline-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
