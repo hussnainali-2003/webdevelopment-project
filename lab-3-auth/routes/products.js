@@ -4,16 +4,23 @@ const Product = require('../models/Product');
 const router = express.Router();
 const PER_PAGE = 8;
 
-// GET /products?page=1&category=Charging&search=wall
+// GET /products?page=1&category=Charging&search=wall&minPrice=10&maxPrice=500
 router.get('/', async (req, res, next) => {
   try {
     const page     = Math.max(parseInt(req.query.page, 10) || 1, 1);
     const category = (req.query.category || '').trim();
     const search   = (req.query.search   || '').trim();
+    const minPrice = req.query.minPrice ? Math.max(0, Number(req.query.minPrice)) : 0;
+    const maxPrice = req.query.maxPrice ? Math.max(0, Number(req.query.maxPrice)) : 999999;
 
     const filter = {};
     if (category) filter.category = category;
     if (search)   filter.name = { $regex: search, $options: 'i' };
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = minPrice;
+      if (maxPrice) filter.price.$lte = maxPrice;
+    }
 
     const total      = await Product.countDocuments(filter);
     const totalPages = Math.max(Math.ceil(total / PER_PAGE), 1);
@@ -27,7 +34,8 @@ router.get('/', async (req, res, next) => {
     res.render('products', {
       title: 'Tesla Shop',
       products, page, totalPages, total,
-      category, search, categories
+      category, search, categories,
+      minPrice, maxPrice
     });
   } catch (err) { next(err); }
 });

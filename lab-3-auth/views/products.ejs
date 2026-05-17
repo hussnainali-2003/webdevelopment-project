@@ -26,6 +26,8 @@
         <option value="<%= c %>" <%= category === c ? 'selected' : '' %>><%= c %></option>
       <% }) %>
     </select>
+    <input type="number" name="minPrice" placeholder="Min price" value="<%= minPrice && minPrice > 0 ? minPrice : '' %>" min="0" />
+    <input type="number" name="maxPrice" placeholder="Max price" value="<%= maxPrice && maxPrice < 999999 ? maxPrice : '' %>" min="0" />
     <button type="submit">Apply</button>
     <a href="/products" class="reset">Reset</a>
   </form>
@@ -55,6 +57,8 @@
            params.set('page', n);
            if (category) params.set('category', category);
            if (search)   params.set('search', search);
+           if (minPrice && minPrice > 0) params.set('minPrice', minPrice);
+           if (maxPrice && maxPrice < 999999) params.set('maxPrice', maxPrice);
            return '/products?' + params.toString();
          } %>
       <% if (page > 1) { %><a href="<%= qs(page - 1) %>">&laquo; Prev</a><% } %>
