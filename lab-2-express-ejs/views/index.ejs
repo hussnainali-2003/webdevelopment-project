@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title %></title>
+  <meta name="description" content="Tesla — electric vehicles, solar and clean energy." />
+  <link rel="stylesheet" href="/public/css/style.css" />
+</head>
+<body>
+
+<%- include('partials/nav') %>
+
+<main>
+  <% vehicles.forEach(function(v){ %>
+    <section class="vehicle" id="<%= v.id %>" style="background-image:url('<%= v.image %>')">
+      <div class="vehicle-text">
+        <h1><%= v.name %></h1>
+        <p class="tagline"><%= v.tagline %></p>
+      </div>
+      <div class="vehicle-cta">
+        <a href="#" class="btn btn-primary">Order Now</a>
+        <a href="#" class="btn btn-secondary"><%= v.secondary %></a>
+      </div>
+    </section>
+  <% }) %>
+</main>
+
+<%- include('partials/footer') %>
+
+<script src="/public/js/script.js"></script>
+</body>
+</html>

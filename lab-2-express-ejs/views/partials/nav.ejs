@@ -1,0 +1,33 @@
+<header class="navbar">
+  <a href="/" class="logo">TESLA</a>
+
+  <nav class="nav-center" id="navCenter">
+    <% vehicles.forEach(function(v){ %>
+      <a href="#<%= v.id %>"><%= v.name %></a>
+    <% }) %>
+  </nav>
+
+  <nav class="nav-right" id="navRight">
+    <a href="#">Shop</a>
+    <a href="#">Account</a>
+  </nav>
+
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<aside class="mobile-panel" id="mobilePanel" aria-hidden="true">
+  <button class="close-btn" id="closeBtn" aria-label="Close menu">&times;</button>
+  <nav>
+    <% vehicles.forEach(function(v){ %>
+      <a href="#<%= v.id %>"><%= v.name %></a>
+    <% }) %>
+    <hr />
+    <a href="#">Shop</a>
+    <a href="#">Account</a>
+    <a href="#">Find Us</a>
+    <a href="#">Support</a>
+  </nav>
+</aside>
+<div class="overlay" id="overlay"></div>

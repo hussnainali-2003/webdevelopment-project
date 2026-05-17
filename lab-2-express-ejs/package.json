@@ -1,0 +1,14 @@
+{
+  "name": "lab-2-express-ejs",
+  "version": "1.0.0",
+  "description": "Tesla landing page ported to Express + EJS",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2"
+  }
+}

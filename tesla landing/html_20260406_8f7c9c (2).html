@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tesla Clone</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<div class="navbar">
+  <div class="logo">TESLA</div>
+  <ul class="nav-links" id="navLinks">
+    <li>Vehicles</li>
+    <li>Energy</li>
+    <li>Charging</li>
+    <li>Discover</li>
+    <li>Shop</li>
+  </ul>
+  <ul class="nav-icons">
+    <li><i class="fas fa-question"></i></li>
+    <li><i class="fas fa-globe"></i></li>
+    <li><i class="fas fa-user"></i></li>
+  </ul>
+  <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+</div>
+
+<!-- Hero Video -->
+<div class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-driving-a-sport-car-on-the-road-41558-large.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- Model Y Section -->
+<div class="model-y">
+  <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&auto=format" alt="Model Y">
+  <h1>Model Y</h1>
+  <p>Lease From $459/mo</p>
+  <button>Order Now</button>
+  <button class="btn-white">Learn More</button>
+</div>
+
+<!-- Product Carousel -->
+<div class="products">
+  <h2>Electric Vehicles</h2>
+  <div class="product-slider" id="productSlider">
+    <div class="product-card"><i class="fas fa-car-side"></i><h3>Model 3</h3><p>From $38,990</p><span>358 mi range</span></div>
+    <div class="product-card"><i class="fas fa-caravan"></i><h3>Model Y</h3><p>From $43,990</p><span>330 mi range</span></div>
+    <div class="product-card"><i class="fas fa-car"></i><h3>Model S</h3><p>From $74,990</p><span>396 mi range</span></div>
+    <div class="product-card"><i class="fas fa-truck-moving"></i><h3>Model X</h3><p>From $79,990</p><span>348 mi range</span></div>
+    <div class="product-card"><i class="fas fa-shield-alt"></i><h3>Cybertruck</h3><p>From $60,990</p><span>340+ mi range</span></div>
+    <div class="product-card"><i class="fas fa-bolt"></i><h3>Roadster</h3><p>Reserve Now</p><span>620 mi range</span></div>
+  </div>
+  <div class="carousel-controls">
+    <button id="prevBtn"><i class="fas fa-chevron-left"></i> Prev</button>
+    <div class="slide-counter" id="counter">Showing 1 of 6</div>
+    <button id="nextBtn">Next <i class="fas fa-chevron-right"></i></button>
+  </div>
+</div>
+
+<footer>
+  <p>Tesla © 2026 | Privacy & Legal | Contact | News</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

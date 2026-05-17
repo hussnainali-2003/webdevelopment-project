@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/public/css/admin.css" />
+</head>
+<body>
+  <header class="admin-header">
+    <a href="/admin" class="brand">TESLA · Admin</a>
+    <nav>
+      <a href="/admin">Products</a>
+      <a href="/admin/new" class="cta">+ Add Product</a>
+      <a href="/products">View Shop ↗</a>
+    </nav>
+  </header>
+
+  <main class="admin-main">
+    <h1>All Products (<%= products.length %>)</h1>
+
+    <table class="admin-table">
+      <thead>
+        <tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Rating</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        <% products.forEach(function(p){ %>
+          <tr>
+            <td><img src="<%= p.image %>" alt="<%= p.name %>" class="thumb" /></td>
+            <td><strong><%= p.name %></strong></td>
+            <td><%= p.category %></td>
+            <td>$<%= p.price.toFixed(2) %></td>
+            <td><%= p.stock %></td>
+            <td>★ <%= p.rating.toFixed(1) %></td>
+            <td>
+              <a href="/admin/<%= p._id %>/edit" class="btn small">Edit</a>
+              <form action="/admin/<%= p._id %>?_method=DELETE" method="POST" style="display:inline" onsubmit="return confirm('Delete <%= p.name %>?')">
+                <button type="submit" class="btn small danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>
