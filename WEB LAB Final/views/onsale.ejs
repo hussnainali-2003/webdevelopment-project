@@ -1,0 +1,81 @@
+<section class="catalog">
+  <header class="catalog-head">
+    <h1>On Sale Products</h1>
+    <p><%= items.length %> promotional item<%= items.length === 1 ? '' : 's' %> available</p>
+  </header>
+
+  <% if (items.length === 0) { %>
+    <p class="empty">No items are currently on sale.</p>
+  <% } else { %>
+    <div id="product-list" class="grid">
+      <% items.forEach(item => { %>
+        <a class="card product-card" href="/products/<%= item._id %>">
+          <img src="<%= item.image %>" alt="<%= item.name %>" />
+          <h3><%= item.name %></h3>
+          <p class="cat"><%= item.category %></p>
+          <p class="price">$<%= item.price.toLocaleString() %></p>
+          <p class="rating">★ <%= item.rating.toFixed(1) %> · <%= item.stock %> in stock</p>
+        </a>
+      <% }) %>
+    </div>
+
+    <div id="sale-pagination" class="pagination-controls">
+      <button id="prevPage" class="btn btn-light" type="button">Previous</button>
+      <span id="pageStatus">Page 1 of 1</span>
+      <button id="nextPage" class="btn btn-light" type="button">Next</button>
+    </div>
+  <% } %>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-3gJwYp9N+Y6U4/sO8YE7q3x2k9HT6Cj7Q8WWN6EYFGo=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function () {
+    const items = $('#product-list .product-card');
+    const perPage = 10;
+    const total = items.length;
+    const totalPages = Math.max(Math.ceil(total / perPage), 1);
+    let currentPage = 1;
+
+    function updatePagination() {
+      items.hide();
+      const start = (currentPage - 1) * perPage;
+      const end = start + perPage;
+      items.slice(start, end).show();
+      $('#pageStatus').text(`Page ${currentPage} of ${totalPages}`);
+      $('#prevPage').prop('disabled', currentPage === 1);
+      $('#nextPage').prop('disabled', currentPage === totalPages);
+    }
+
+    $('#prevPage').on('click', function () {
+      if (currentPage <= 1) return;
+      currentPage -= 1;
+      updatePagination();
+    });
+
+    $('#nextPage').on('click', function () {
+      if (currentPage >= totalPages) return;
+      currentPage += 1;
+      updatePagination();
+    });
+
+    updatePagination();
+  });
+</script>
+
+<style>
+  #sale-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  #sale-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  #sale-pagination span {
+    font-weight: 700;
+  }
+</style>

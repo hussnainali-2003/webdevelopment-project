@@ -1,0 +1,25 @@
+<% function qs(extra) {
+  const merged = Object.assign({}, qstring, extra);
+  return '?' + Object.entries(merged).filter(([,v]) => v !== '' && v != null).map(([k,v]) => encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&');
+} %>
+<nav class="pagination">
+  <% if (page > 1) { %>
+    <a href="<%= qs({ page: page - 1 }) %>">‹ Prev</a>
+  <% } else { %>
+    <span class="disabled">‹ Prev</span>
+  <% } %>
+
+  <% for (let i = 1; i <= totalPages; i++) { %>
+    <% if (i === page) { %>
+      <span class="current"><%= i %></span>
+    <% } else { %>
+      <a href="<%= qs({ page: i }) %>"><%= i %></a>
+    <% } %>
+  <% } %>
+
+  <% if (page < totalPages) { %>
+    <a href="<%= qs({ page: page + 1 }) %>">Next ›</a>
+  <% } else { %>
+    <span class="disabled">Next ›</span>
+  <% } %>
+</nav>

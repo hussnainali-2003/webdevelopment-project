@@ -1,0 +1,19 @@
+<form class="filter-bar" method="GET" action="/products">
+  <input type="search" name="q" placeholder="Search products…" value="<%= qstring.q || '' %>" />
+  <select name="category">
+    <option value="">All categories</option>
+    <% categories.forEach(c => { %>
+      <option value="<%= c %>" <%= qstring.category === c ? 'selected' : '' %>><%= c %></option>
+    <% }) %>
+  </select>
+  <input type="number" min="0" name="minPrice" placeholder="Min $" value="<%= qstring.minPrice || '' %>" />
+  <input type="number" min="0" name="maxPrice" placeholder="Max $" value="<%= qstring.maxPrice || '' %>" />
+  <select name="sort">
+    <option value="">Newest</option>
+    <option value="price_asc"  <%= qstring.sort === 'price_asc'  ? 'selected':'' %>>Price ↑</option>
+    <option value="price_desc" <%= qstring.sort === 'price_desc' ? 'selected':'' %>>Price ↓</option>
+    <option value="rating"     <%= qstring.sort === 'rating'     ? 'selected':'' %>>Top rated</option>
+  </select>
+  <button type="submit">Apply</button>
+  <a href="/products" class="reset">Reset</a>
+</form>

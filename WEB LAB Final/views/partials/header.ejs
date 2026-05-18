@@ -1,0 +1,24 @@
+<header class="site-header">
+  <a href="/" class="logo">TESLA</a>
+  <nav class="primary-nav">
+    <a href="/products?category=Vehicles">Vehicles</a>
+    <a href="/products?category=Energy">Energy</a>
+    <a href="/products?category=Charging">Charging</a>
+    <a href="/products?category=Apparel">Shop</a>
+    <a href="/onsale-products">On Sale</a>
+  </nav>
+  <nav class="user-nav">
+    <% if (currentUser) { %>
+      <% if (currentUser.role === 'admin') { %>
+        <a href="/admin">Admin</a>
+      <% } %>
+      <span class="hi">Hi, <%= currentUser.name.split(' ')[0] %></span>
+      <form action="/auth/logout" method="POST" style="display:inline">
+        <button class="link-button" type="submit">Logout</button>
+      </form>
+    <% } else { %>
+      <a href="/auth/login">Sign In</a>
+      <a href="/auth/register" class="cta">Register</a>
+    <% } %>
+  </nav>
+</header>

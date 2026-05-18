@@ -1,0 +1,64 @@
+<div class="page-head">
+  <h1>Order #<%= order._id.toString().substring(0,8) %></h1>
+  <a href="/admin/orders" class="btn btn-light"><i class="fa-solid fa-arrow-left me-1"></i> Back</a>
+</div>
+
+<div class="order-grid">
+  <div class="card">
+    <div class="card-header">Items</div>
+    <div class="card-body p-0">
+      <table class="table mb-0">
+        <thead><tr><th class="ps-3">Product</th><th>Price</th><th>Qty</th><th class="pe-3">Total</th></tr></thead>
+        <tbody>
+          <% order.items.forEach(item => { %>
+            <tr>
+              <td class="ps-3"><%= item.product ? item.product.name : '(deleted product)' %></td>
+              <td>$<%= Number(item.price).toFixed(2) %></td>
+              <td><%= item.quantity %></td>
+              <td class="pe-3">$<%= (Number(item.price) * item.quantity).toFixed(2) %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="3" class="text-end fw-bold">Total</td><td class="pe-3 fw-bold">$<%= order.total.toFixed(2) %></td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column gap-3">
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-user me-1"></i> Customer</div>
+      <div class="card-body">
+        <% if (order.user) { %>
+          <p class="mb-1 fw-medium"><%= order.user.name %></p>
+          <p class="mb-0 text-muted"><%= order.user.email %></p>
+        <% } else { %><p class="text-muted mb-0">(deleted user)</p><% } %>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-truck me-1"></i> Shipping</div>
+      <div class="card-body">
+        <p class="mb-1"><%= order.shippingInfo.address || '—' %></p>
+        <p class="mb-0 text-muted"><%= order.shippingInfo.city %><%= order.shippingInfo.zip ? ', ' + order.shippingInfo.zip : '' %></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-flag me-1"></i> Status</div>
+      <div class="card-body">
+        <p><span class="badge-status badge-<%= order.status %>"><%= order.status %></span></p>
+        <form method="POST" action="/admin/orders/status/<%= order._id %>">
+          <label class="form-label">Update status</label>
+          <select class="form-select mb-2" name="status">
+            <% ['pending','paid','shipped','delivered','cancelled'].forEach(s => { %>
+              <option value="<%= s %>" <%= order.status === s ? 'selected':'' %>><%= s %></option>
+            <% }) %>
+          </select>
+          <button class="btn btn-primary w-100" type="submit">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

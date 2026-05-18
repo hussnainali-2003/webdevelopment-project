@@ -1,0 +1,26 @@
+<section class="catalog">
+  <header class="catalog-head">
+    <h1>Shop</h1>
+    <p><%= total %> result<%= total === 1 ? '' : 's' %></p>
+  </header>
+
+  <%- include('../partials/filters') %>
+
+  <% if (items.length === 0) { %>
+    <p class="empty">No products match your filters.</p>
+  <% } else { %>
+    <div class="grid">
+      <% items.forEach(p => { %>
+        <a class="card" href="/products/<%= p._id %>">
+          <img src="<%= p.image %>" alt="<%= p.name %>" />
+          <h3><%= p.name %></h3>
+          <p class="cat"><%= p.category %></p>
+          <p class="price">$<%= p.price.toLocaleString() %></p>
+          <p class="rating">★ <%= p.rating.toFixed(1) %> · <%= p.stock %> in stock</p>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <%- include('../partials/pagination') %>
+</section>
